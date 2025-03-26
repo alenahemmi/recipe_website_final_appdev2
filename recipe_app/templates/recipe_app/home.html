@@ -1,0 +1,9 @@
+{% extends "recipe_app/base.html" %}
+{% load static %} 
+
+{% block title %}Home - My Recipe App{% endblock %}
+
+{% block content %}
+<p>Find your favorite recipes and share your creations!</p>
+<p>Have a recipe to add to your online cookbook and share? &rarr; <a href="{% url 'recipe_create' %}">Create a Recipe</a></p>
+{% endblock %}

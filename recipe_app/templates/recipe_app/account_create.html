@@ -1,0 +1,31 @@
+{% extends "recipe_app/base.html" %}
+
+{% block title %}Create an Account{% endblock %}
+
+{% block content %}
+<h1>Create an Account</h1>
+
+
+<form method="post" style="display: flex; flex-direction: column; gap: 10px;">
+    {% csrf_token %}
+    
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required>
+
+    <label for="first_name">First Name:</label>
+    <input type="text" name="first_name" id="first_name" required>
+
+    <label for="last_name">Last Name:</label>
+    <input type="text" name="last_name" id="last_name" required>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required>
+
+    <label for="bio">Bio:</label>
+    <textarea name="bio" id="bio"></textarea>
+
+    <div style="height: 20px;"></div>
+
+    <button type="submit">Create Account</button>
+</form>
+{% endblock %}

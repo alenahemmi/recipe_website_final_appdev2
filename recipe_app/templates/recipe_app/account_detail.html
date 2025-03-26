@@ -1,0 +1,33 @@
+{% extends "recipe_app/base.html" %}
+
+{% block title %}{{ account.username }}'s Profile{% endblock %}
+
+{% block content %}
+<h1>{{ account.username }}</h1>
+
+{% if user == account %}
+    <a href="{% url 'account_edit' username=account.username %}">Edit Account</a>
+{% endif %}
+
+<p>First name: {{ account.first_name }}</p>
+<p>Last name: {{ account.last_name }}</p>
+<p>Bio: {{ account.bio }}</p>
+
+<h2>Favorites:</h2>
+<ul>
+    {% for recipe in favorites %}
+        <li><a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.recipe_name }}</a></li>
+    {% empty %}
+        <p>No favorite recipes yet.</p>
+    {% endfor %}
+</ul>
+
+<h2>Recipes Created:</h2>
+<ul>
+    {% for recipe in created_recipes %}
+        <li><a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.recipe_name }}</a></li>
+    {% empty %}
+        <p>You should make some recipes! You haven't yet </p>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -16,7 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from recipe_app.views import home, AccountDetail, RecipeList, RecipeDetail, RecipeCreate, AccountCreate, RecipeEdit, AccountEdit, ToggleFavorite
+from django.contrib.auth.views import LogoutView, LoginView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', home, name='home'),
+    path('admin/', admin.site.urls),  
+    path('account/<str:username>/', AccountDetail.as_view(), name='account_detail'), 
+    path('account/<str:username>/edit/', AccountEdit.as_view(), name='account_edit'),
+    path('accounts/login/', LoginView.as_view(), name='login'),
+    path("register/", AccountCreate.as_view(), name="account_create"),
+    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('recipe/', RecipeList.as_view(), name='recipe_list'), 
+    path('recipe/<int:pk>/', RecipeDetail.as_view(), name='recipe_detail'), 
+    path('recipe/<int:pk>/edit/', RecipeEdit.as_view(), name='recipe_edit'),
+    path('recipe/new/', RecipeCreate.as_view(), name='recipe_create'),
+    path('recipe/favorite/<int:pk>/', ToggleFavorite.as_view(), name='toggle_favorite'),
 ]

@@ -1,0 +1,25 @@
+{% extends "recipe_app/base.html" %}
+
+{% block title %}Edit {{ recipe.recipe_name }}{% endblock %}
+
+{% block content %}
+<h1>Edit Recipe</h1>
+
+<form method="post" style="display: flex; flex-direction: column; gap: 10px;">
+    {% csrf_token %}
+    <label for="recipe_name">Recipe Name:</label>
+    <input type="text" name="recipe_name" value="{{ recipe.recipe_name }}" required>
+
+    <label for="ingredients">Ingredients:</label>
+    <textarea name="ingredients" required>{{ recipe.ingredients }}</textarea>
+
+    <label for="directions">Directions:</label>
+    <textarea name="directions" required>{{ recipe.directions }}</textarea>
+
+    <label for="hashtags">Hashtags (comma separated):</label>
+    <input type="text" name="hashtags" value="{% if recipe.hashtags.all %}{{ recipe.hashtags.all|join:", " }}{% endif %}">
+
+    <button type="submit">Save Changes</button>
+</form>
+
+{% endblock %}

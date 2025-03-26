@@ -1,0 +1,25 @@
+{% extends "recipe_app/base.html" %}
+
+{% block title %}Create a Recipe{% endblock %}
+
+{% block content %}
+<h1>Create a Recipe</h1>
+
+<form method="post" style="display: flex; flex-direction: column; gap: 10px;">
+    {% csrf_token %}
+    
+    <label for="recipe_name">Recipe Name:</label>
+    <input type="text" name="recipe_name" required>
+
+    <label for="ingredients">Ingredients:</label>
+    <textarea name="ingredients" required></textarea>
+
+    <label for="directions">Directions:</label>
+    <textarea name="directions" required></textarea>
+
+    <label for="hashtags">Hashtags (comma-separated):</label>
+    <input type="text" name="hashtags">
+
+    <button type="submit">Create Recipe</button>
+</form>
+{% endblock %}

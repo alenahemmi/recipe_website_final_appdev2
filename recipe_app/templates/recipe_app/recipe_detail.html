@@ -1,0 +1,74 @@
+{% extends "recipe_app/base.html" %}
+
+{% block title %}{{ recipe.recipe_name }}{% endblock %}
+
+{% block content %}
+<h1>
+    {{ recipe.recipe_name }}
+
+    {% if user.is_authenticated %}
+        <form action="{% url 'toggle_favorite' pk=recipe.pk %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            {% if recipe in user.favorites.all %}
+                <button type="submit" class="btn">&#10084;&#65039;</button>
+            {% else %}
+                <button type="submit" class="btn">&#9825;</button>
+            {% endif %}
+        </form>
+    {% else %}
+        <p>You must be logged in to favorite a recipe.</p>
+    {% endif %}
+</h1>
+
+
+
+<p>Creator: {{ recipe.creator.username }}</p>
+{% if can_edit %}
+    <p>You own this recipe! You can make changes here: <a href="{% url 'recipe_edit' recipe.id %}">Edit Recipe</a></p>
+{% endif %}
+
+<h2>Ingedients</h2>
+<p>{{ recipe.ingredients }}</p>
+<h2>Directions</h2>
+<p>{{ recipe.directions }}</p>
+
+
+<h2>Hashtags:</h2>
+<ul>
+    {% for hashtag in recipe.hashtags.all %}
+        <li>{{ hashtag.hashtag }}</li>
+    {% empty %}
+        <p>No hashtags yet.</p>
+    {% endfor %}
+</ul>
+
+<h2>Comments:</h2>
+{% for comment in comments %}
+<div style="display: flex; align-items: center;">
+    <p style="margin-right: 10px;">{{ comment.user.username }}: {{ comment.content }}</p>
+    
+    {% if comment.user == user %}
+        <form method="post" style="margin: 0;">
+            {% csrf_token %}
+            <input type="hidden" name="delete_comment_id" value="{{ comment.id }}">
+            <button type="submit">Delete</button>
+        </form>
+    {% endif %}
+</div>
+
+{% empty %}
+    <p>No comments yet. Be the first to comment!</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+    <h3>Add a Comment:</h3>
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="content" required></textarea>
+        <button type="submit">Post Comment</button>
+    </form>
+{% else %}
+    <p>You must be logged in to comment.</p>
+{% endif %}
+
+{% endblock %}
