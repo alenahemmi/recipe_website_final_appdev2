@@ -2,6 +2,7 @@
 <head>
     <title>{% block title %}The Recipe Network{% endblock %}</title>
     {% load static %}
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
@@ -21,6 +22,12 @@
             {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li> or <a href="{% url 'account_create' %}">Create an Account</a>
             {% endif %}
+            <li>
+                <form action="{% url 'recipe_list' %}" method="get">
+                    <input type="text" name="q" placeholder="Search" value="{{ request.GET.q }}">
+                    <button type="submit">Search</button>
+                </form>
+            </li>
         </ul>
     </nav>
 
@@ -36,5 +43,8 @@
     <footer>
         <p>The Recipe Network - Alena Hemminger - Spring 2025</p>
     </footer>
+    
+    <script src="{% static 'recipe_app/favorite.js' %}"></script>
+
 </body>
 </html>

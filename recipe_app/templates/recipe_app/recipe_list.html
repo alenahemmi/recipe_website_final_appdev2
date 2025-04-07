@@ -4,6 +4,9 @@
 
 {% block content %}
 <h1>All Recipes</h1>
+{% if request.GET.q %}
+    <h2>Search results for "{{ request.GET.q }}"</h2>
+{% endif %}
 <ul>
     {% for recipe in recipes %}
         <li><a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.recipe_name }}</a></li>

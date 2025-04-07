@@ -3,18 +3,20 @@
 {% block title %}{{ recipe.recipe_name }}{% endblock %}
 
 {% block content %}
+
 <h1>
     {{ recipe.recipe_name }}
 
     {% if user.is_authenticated %}
-        <form action="{% url 'toggle_favorite' pk=recipe.pk %}" method="post" style="display: inline;">
-            {% csrf_token %}
+        <button id="favorite-toggle"
+                data-url="{% url 'toggle_favorite' pk=recipe.pk %}"
+                class="btn">
             {% if recipe in user.favorites.all %}
-                <button type="submit" class="btn">&#10084;&#65039;</button>
+                💖 Favorited
             {% else %}
-                <button type="submit" class="btn">&#9825;</button>
+                🤍 Not Favorited
             {% endif %}
-        </form>
+        </button>
     {% else %}
         <p>You must be logged in to favorite a recipe.</p>
     {% endif %}
@@ -70,5 +72,8 @@
 {% else %}
     <p>You must be logged in to comment.</p>
 {% endif %}
+
+
+
 
 {% endblock %}

@@ -7,6 +7,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login
 from django.contrib.auth.hashers import make_password
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -98,7 +99,12 @@ class RecipeList(ListView):
     template_name = 'recipe_list.html'
     context_object_name = 'recipes'
 
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        q = self.request.GET.get('q')
+        if q:
+            context['recipes'] = Recipe.objects.filter(recipe_name__icontains=q)
+        return context
 
 
 class RecipeDetail(DetailView):
@@ -219,9 +225,12 @@ class ToggleFavorite(LoginRequiredMixin, View):
         recipe = get_object_or_404(Recipe, pk=pk)
         user = request.user
 
+        favorited = False
         if recipe in user.favorites.all():
             user.favorites.remove(recipe)
+            favorited = False
         else:
             user.favorites.add(recipe)
+            favorited = True
 
-        return redirect('recipe_detail', pk=pk)
+        return JsonResponse({'favorited': favorited})
