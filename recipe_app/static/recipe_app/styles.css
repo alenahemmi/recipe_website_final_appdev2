@@ -1,3 +1,67 @@
-h1 {
-    color: darkgreen;
+body {
+    margin: 1;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #000000;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+
+a:link, a:visited {
+    color: #0300ad;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    font-weight: bold;
+    color: #052861;
+}
+
+footer {
+    text-align: center;
+}
+
+.home-nav {
+    text-align: center;
+    color: #0006a6;
+}
+
+button {
+    border-radius: 8px;
+    border-width: 1px;
+}
+
+button:hover {
+    border-width: 2px;
+    background-color: #b8b8b8;
+}
+
+.search-bar form {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-background {
+    background-color: #636363; 
+    padding: 20px 0;
+}
+
+.footer-background {
+    background-color: #636363;
+    padding: 20px 0;
+}
+
+.container {
+    background-color: #ffffff;
 }

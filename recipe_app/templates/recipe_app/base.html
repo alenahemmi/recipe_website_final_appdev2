@@ -3,34 +3,35 @@
     <title>{% block title %}The Recipe Network{% endblock %}</title>
     {% load static %}
     <meta name="csrf-token" content="{{ csrf_token }}">
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'recipe_app/styles.css' %}">
 </head>
 <body>
-    <h1>The Recipe Network</h1>
-    <nav>
-        <ul style="display: flex; flex-direction: row; gap: 10px; list-style-type: none;">
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'recipe_list' %}">Recipes</a></li>
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'account_detail' user.username %}">My Account</a></li>
-                <li>
-                    <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Logout</button>
+    <div class="header-background">
+        <h1>The Recipe Network</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}" class="home-nav">Home</a></li>
+                <li><a href="{% url 'recipe_list' %}">Recipes</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'account_detail' user.username %}">My Account</a></li>
+                    <li>
+                        <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li> or <a href="{% url 'account_create' %}">Create an Account</a>
+                {% endif %}
+                <li class="search-bar">
+                    <form action="{% url 'recipe_list' %}" method="get">
+                        <input type="text" name="q" placeholder="Search" value="{{ request.GET.q }}">
+                        <button type="submit">Search</button>
                     </form>
                 </li>
-            {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li> or <a href="{% url 'account_create' %}">Create an Account</a>
-            {% endif %}
-            <li>
-                <form action="{% url 'recipe_list' %}" method="get">
-                    <input type="text" name="q" placeholder="Search" value="{{ request.GET.q }}">
-                    <button type="submit">Search</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
-
+            </ul>
+        </nav>
+    </div>
     <hr>
 
     <div class="container">
@@ -40,9 +41,11 @@
 
     <hr>
 
-    <footer>
-        <p>The Recipe Network - Alena Hemminger - Spring 2025</p>
-    </footer>
+    <div class="footer-background">
+        <footer>
+            <p>The Recipe Network - Alena Hemminger - Spring 2025</p>
+        </footer>
+    </div>
     
     <script src="{% static 'recipe_app/favorite.js' %}"></script>
 
