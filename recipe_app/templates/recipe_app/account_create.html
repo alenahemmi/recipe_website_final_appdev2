@@ -5,20 +5,23 @@
 {% block content %}
 <h1>Create an Account</h1>
 
-
 <form method="post" style="display: flex; flex-direction: column; gap: 10px;">
     {% csrf_token %}
     
-    <label for="username">Username:</label>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <label for="username">Username: <span style="color: red">*</span></label>
     <input type="text" name="username" id="username" required>
 
-    <label for="first_name">First Name:</label>
+    <label for="first_name">First Name: <span style="color: red">*</span></label>
     <input type="text" name="first_name" id="first_name" required>
 
-    <label for="last_name">Last Name:</label>
+    <label for="last_name">Last Name: <span style="color: red">*</span></label>
     <input type="text" name="last_name" id="last_name" required>
 
-    <label for="password">Password:</label>
+    <label for="password">Password: <span style="color: red">*</span></label>
     <input type="password" name="password" id="password" required>
 
     <label for="bio">Bio:</label>

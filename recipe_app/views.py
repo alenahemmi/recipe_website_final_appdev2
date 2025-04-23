@@ -50,6 +50,10 @@ class AccountCreate(View):
         if not (username and first_name and last_name and password):
             return render(request, self.template_name, {"error": "All fields are required."})
 
+        if Account.objects.filter(username=username).exists():
+            return render(request, self.template_name, {"error": "Username already taken."})
+        
+        
         user = Account.objects.create(
             username=username,
             first_name=first_name,
