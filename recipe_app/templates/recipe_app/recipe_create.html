@@ -8,13 +8,13 @@
 <form method="post" style="display: flex; flex-direction: column; gap: 10px;">
     {% csrf_token %}
     
-    <label for="recipe_name">Recipe Name:</label>
+    <label for="recipe_name">Recipe Name: <span style="color: red">*required</span></label>
     <input type="text" name="recipe_name" required>
 
-    <label for="ingredients">Ingredients:</label>
+    <label for="ingredients">Ingredients: <span style="color: red">*required</span></label>
     <textarea name="ingredients" required></textarea>
 
-    <label for="directions">Directions:</label>
+    <label for="directions">Directions: <span style="color: red">*required</span></label>
     <textarea name="directions" required></textarea>
 
     <label for="hashtags">Hashtags (comma-separated):</label>
