@@ -4,8 +4,7 @@
 
 {% block content %}
 
-<h1>
-    {{ recipe.recipe_name }}
+<h1>{{ recipe.recipe_name }}</h1>
 
     {% if user.is_authenticated %}
         <button id="favorite-toggle"
@@ -20,7 +19,7 @@
     {% else %}
         <p>You must be logged in to favorite a recipe.</p>
     {% endif %}
-</h1>
+
 
 
 
